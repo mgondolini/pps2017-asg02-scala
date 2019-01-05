@@ -41,7 +41,6 @@ object Combiner{
   }
 }
 
-
 object FunctionsImpl extends Functions {
 
   private def combine[A](comb : Combiner[A], list : Seq[A]) : A = list match {
@@ -49,11 +48,11 @@ object FunctionsImpl extends Functions {
     case _ => comb.unit
   }
 
-  override def sum(a: List[Double]): Double = ???  // combine(...)
+  override def sum(a: List[Double]): Double = combine(Combiner.sum, a)
 
-  override def concat(a: Seq[String]): String = ??? // combine(...)
+  override def concat(a: Seq[String]): String = combine(Combiner.concat, a)
 
-  override def max(a: List[Int]): Int = ??? // combine(...)
+  override def max(a: List[Int]): Int = combine(Combiner.max, a)
 }
 
 object TryFunctions extends App {
