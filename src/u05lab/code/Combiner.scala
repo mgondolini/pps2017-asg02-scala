@@ -24,6 +24,23 @@ trait Combiner[A] {
   def combine(a: A, b: A): A
 }
 
+object Combiner{
+  val sum : Combiner[Double] = new Combiner[Double] {
+    override def unit: Double = 0
+    override def combine(a: Double, b: Double): Double =  a+b
+  }
+
+  val concat : Combiner[String] = new Combiner[String] {
+    override def unit: String = ""
+    override def combine(a: String, b: String): String = a concat b
+  }
+
+  val max : Combiner[Int] = new Combiner[Int] {
+    override def unit: Int = Int.MinValue
+    override def combine(a: Int, b: Int): Int = a max b
+  }
+}
+
 
 object FunctionsImpl extends Functions {
 
