@@ -1,6 +1,6 @@
 *.pdf
 bin
-.idea
+.idea/
 .idea/workspace.xml
 .idea/libraries
 out

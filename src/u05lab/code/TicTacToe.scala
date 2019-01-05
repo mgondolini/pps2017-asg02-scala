@@ -61,7 +61,7 @@ object TicTacToe extends App {
   //..X ... ... .X. ... ... X.. ...
 
   // Exercise 3 (ADVANCED!): implement computeAnyGame such that..
-  computeAnyGame(O, 4) foreach {g => printBoards(g); println()}
+//  computeAnyGame(O, 4) foreach {g => printBoards(g); println()}
   //... X.. X.. X.. XO.
   //... ... O.. O.. O..
   //... ... ... X.. X..
