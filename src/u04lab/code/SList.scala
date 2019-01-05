@@ -84,7 +84,13 @@ trait ListImplementation[A] extends List[A] {
     case _ => Seq()
   }
 
-  override def zipRight: List[(A,Int)] = ??? // questions: what is the type of keyword ???
+  override def zipRight: List[(A,Int)] = {
+    def _zip(l : List[A], n : Int) : List[(A,Int)] = l match{
+      case h :: t => (h,n) :: _zip(t, n+1)
+      case _ => Nil()
+    }
+    _zip(this,0)
+  }// questions: what is the type of keyword ???
 
   override def flatMap[B](f: A => List[B]): List[B] = ???
 }
