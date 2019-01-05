@@ -92,7 +92,10 @@ trait ListImplementation[A] extends List[A] {
     _zip(this,0)
   }// questions: what is the type of keyword ???
 
-  override def flatMap[B](f: A => List[B]): List[B] = ???
+  override def flatMap[B](f: A => List[B]): List[B] = this match{
+    case h :: t =>  f(h) append(t flatMap f)
+    case _ => Nil()
+  }
 }
 
 // Factories
