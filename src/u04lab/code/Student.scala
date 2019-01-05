@@ -1,18 +1,39 @@
 package u04lab.code
 
 trait Student {
-  def name: String
-  def year: Int
   def enrolling(course: Course): Unit // the student participates to a Course
   def courses: List[String] // names of course the student participates to
   def hasTeacher(teacher: String): Boolean // is the student participating to a course of this teacher?
 }
 
+case class Course(courseName: String, teacher: String)
+
 object Student {
-  def apply(name: String, year: Int = 2017):Student = ???
+  def apply(name: String, year: Int = 2017): Student = StudentImpl(name, year)
+
+  case class StudentImpl(name: String, year: Int) extends Student {
+
+    private var studentCourses: Set[Course] = Set()
+
+    override def enrolling(course: Course): Unit = {
+      studentCourses = studentCourses + course
+      println(studentCourses)
+    }
+
+    override def courses: List[String] = {
+      var result: List[String] = List()
+      studentCourses map (x => x.courseName) foreach (s => {
+        result = result append List(s)
+      })
+      result
+    }
+
+    override def hasTeacher(teacher: String): Boolean = studentCourses map (x => x.teacher) contains teacher
+  }
+
 }
 
-case class Course(courseName: String, teacher: String)
+
 
 object Try extends App {
   val cPPS = Course("PPS","Viroli")
