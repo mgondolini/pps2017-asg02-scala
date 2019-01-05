@@ -1,5 +1,10 @@
 package u05lab.code
 
+import u05lab.code.TicTacToe.{columns, markBoard, rows}
+
+import scala.collection.mutable
+import scala.util.Random
+
 object TicTacToe extends App {
   sealed trait Player{
     def other: Player = this match {case X => O; case _ => X}
@@ -8,15 +13,31 @@ object TicTacToe extends App {
   case object X extends Player
   case object O extends Player
 
+  final val rows = 3
+  final val columns = 3
+
   case class Mark(x: Double, y: Double, player: Player)
   type Board = List[Mark]
   type Game = List[Board]
 
-  def find(board: Board, x: Double, y: Double): Option[Player] = ???
+  var markBoard: mutable.MutableList[Mark] = new mutable.MutableList[Mark]()
 
-  def placeAnyMark(board: Board, player: Player): Seq[Board] = ???
+  def find(board: Board, x: Double, y: Double): Option[Player] = board match {
+    case Mark(`x`, `y`, p) :: _ => Some(p)
+    case _ :: t => find(t, x, y)
+    case _ => None
+  }
 
-  def computeAnyGame(player: Player, moves: Int): Stream[Game] = ???
+  def placeAnyMark(board: Board, player: Player): Seq[Board] = {
+    board match {
+      case Mark(x, y, p) :: _ => markBoard += Mark(x, y, p)
+      case _ :: t => placeAnyMark(board, player)
+      case _ => markBoard += Mark(Random.nextInt(rows), Random.nextInt(columns), player)
+    }
+    Seq(markBoard.toList)
+  }
+
+//  def computeAnyGame(player: Player, moves: Int): Stream[Game] = ???
 
   def printBoards(game: Seq[Board]): Unit =
     for (y <- 0 to 2; board <- game.reverse; x <- 0 to 2) {
