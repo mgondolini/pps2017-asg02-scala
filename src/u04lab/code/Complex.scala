@@ -10,8 +10,13 @@ trait Complex {
 object Complex {
   def apply(re:Double, im:Double): Complex = ComplexImpl(re, im) // Fill here
   private class ComplexImpl(override val re: Double, override val im: Double) extends Complex{
-    override def +(c: Complex): Complex = ???
-    override def *(c: Complex): Complex = ???
+    override def +(c: Complex): Complex = Complex(re+c.re , im+c.im)
+    override def *(c: Complex): Complex = {
+      val k1 = c.re * (this.re + this.im)
+      val k2 = this.re * (c.re - c.im)
+      val k3 = this.im * (c.re + c.im)
+      Complex(k1-k3, k1+k2)
+    }
   }
 }
 
