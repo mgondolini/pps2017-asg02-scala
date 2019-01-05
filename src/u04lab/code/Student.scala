@@ -8,18 +8,11 @@ trait Student {
   def hasTeacher(teacher: String): Boolean // is the student participating to a course of this teacher?
 }
 
-trait Course {
-  def name: String
-  def teacher: String
-}
-
 object Student {
   def apply(name: String, year: Int = 2017):Student = ???
 }
 
-object Course {
-  def apply(name: String, teacher: String):Course = ???
-}
+case class Course(courseName: String, teacher: String)
 
 object Try extends App {
   val cPPS = Course("PPS","Viroli")
