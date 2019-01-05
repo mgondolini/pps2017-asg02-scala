@@ -44,7 +44,10 @@ object Combiner{
 
 object FunctionsImpl extends Functions {
 
-  // private def combine[A]...{...}
+  private def combine[A](comb : Combiner[A], list : Seq[A]) : A = list match {
+    case h::t => comb.combine(h, combine(comb, t))
+    case _ => comb.unit
+  }
 
   override def sum(a: List[Double]): Double = ???  // combine(...)
 
